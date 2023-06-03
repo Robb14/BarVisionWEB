@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Home, Sign, Login, ForSearch} from "../views/index.js";
+import { Home, Signin, Login} from "../views/index.js";
 
 const routes = [
   {
@@ -13,20 +13,15 @@ const routes = [
     component: Home,
   },
   {
-    path: "/sign",
-    name: "Sign",
-    component: Sign,
+    path: "/signin",
+    name: "Signin",
+    component: Signin,
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
   },
-  {
-    path: "/search",
-    name: "Search",
-    component: ForSearch,
-  }
 ];
 
 const router = createRouter({
