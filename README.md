@@ -1,4 +1,4 @@
-# watchme
+# barvision
 
 ## Project setup
 ```

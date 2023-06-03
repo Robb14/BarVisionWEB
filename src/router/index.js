@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Home, Signin, Login, Search } from "../views/index.js";
+import { Home, Sign, Login, ForSearch} from "../views/index.js";
 
 const routes = [
   {
@@ -13,9 +13,9 @@ const routes = [
     component: Home,
   },
   {
-    path: "/signin",
-    name: "Signin",
-    component: Signin,
+    path: "/sign",
+    name: "Sign",
+    component: Sign,
   },
   {
     path: "/login",
@@ -25,7 +25,7 @@ const routes = [
   {
     path: "/search",
     name: "Search",
-    component: Search,
+    component: ForSearch,
   }
 ];
 
@@ -35,4 +35,3 @@ const router = createRouter({
 });
 
 export default router;
-

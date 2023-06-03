@@ -1,6 +1,6 @@
 import Home from "./Home.vue";
-import Signin from "./Signin.vue";
+import Sign from "./Sign.vue";
 import Login from "./Login.vue";
-import Search from "./ForSearch.vue";
+import ForSearch from "./ForSearch.vue";
 
-export { Home, Signin, Login, Search };
+export { Home, Sign, Login, ForSearch };
