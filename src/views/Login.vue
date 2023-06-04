@@ -1,6 +1,6 @@
 <template>
     <div class="back-img-login relative justify-center flex items-center">
-        <Login class="absolute" />
+        <Login />
     </div>
 </template>
   

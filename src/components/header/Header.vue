@@ -15,7 +15,7 @@
             </nav>
             <div>
                 <router-link to="/login" class="text-white mr-8 hover:text-gray-400">Log In</router-link>
-                <router-link to="/sign"
+                <router-link to="/signin"
                     class="bg-white text-gray-900 font-medium py-2 px-4 rounded-full transition-colors duration-300 hover:bg-gray-400 hover:text-white">Create
                     Account</router-link>
             </div>
