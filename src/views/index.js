@@ -1,5 +1,5 @@
 import Home from "./Home.vue";
-import Signin from "./Signin.vue";
+import signup from "./signup.vue";
 import Login from "./Login.vue";
 
-export { Home, Signin, Login };
+export { Home, signup, Login };

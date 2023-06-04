@@ -6,12 +6,16 @@
   
 <script>
 import Login from "@/components/login/Login.vue";
+
 export default {
-    name: "Login",
-    components: { Login },
+    name: "LoginView",
+    components: {
+        Login,
+    },
     methods: {},
 };
 </script>
+  
 <style scoped>
 .back-img-login {
     background-image: url(../assets/fondologin.jpg);
@@ -20,3 +24,4 @@ export default {
     height: 100vh;
 }
 </style>
+  
