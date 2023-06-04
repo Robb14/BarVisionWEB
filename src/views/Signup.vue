@@ -7,14 +7,14 @@
   <script>
   import Register from "@/components/register/Register.vue";
   export default {
-    name: "Signin",
+    name: "Signup",
     components: { Register },
     methods: {},
   };
   </script>
   <style scoped>
   .back-img {
-    background-image: url(../assets/cambiar.jpg);
+    background-image: url(../assets/fondoregister.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;

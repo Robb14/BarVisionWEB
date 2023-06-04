@@ -64,7 +64,7 @@
                                         <div class="flex items-center justify-between pb-6">
                                             <p class="mb-0 mr-2 text-white">Don't have an account?</p>
                                             <div class="flex items-center justify-center h-full">
-                                                <router-link to="/sign" type="button"
+                                                <router-link to="/signup" type="button"
                                                     class="inline-block rounded bg-blue-500 hover:bg-blue-600 px-4 py-2 text-white font-medium"
                                                     data-te-ripple-init data-te-ripple-color="light"
                                                     style="background: linear-gradient(to bottom right, #283E51, #0A2342);">

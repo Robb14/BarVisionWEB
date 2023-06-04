@@ -4,12 +4,9 @@
             <div class="flex flex-col items-center justify-center h-screen">
                 <h1 class="text-4xl text-white font-bold">BarVision</h1>
                 <p class="text-2xl text-white mt-4">Cheers to Sports Lovers, Cheers to BarVision!</p>
-                <!-- <router-link to="/search"
+                <router-link to="/search"
                     class="bg-white text-black px-8 py-2 mt-8 transition-colors duration-500 hover:bg-gray-800 hover:text-white">Search
-                    Now</router-link> -->
-                 <button
-                    class="bg-white text-black px-8 py-2 mt-8 transition-colors duration-500 hover:bg-gray-800 hover:text-white">Search
-                    Now</button> 
+                    Now</router-link>
             </div>
         </div>
 
