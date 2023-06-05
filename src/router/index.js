@@ -4,6 +4,7 @@ import Signup from "../views/Signup.vue";
 import Login from "../views/Login.vue";
 import Search from "../views/Search.vue";
 import Results from "../views/Results.vue";
+import Details from "../views/Details.vue";
 
 const routes = [
   {
@@ -34,6 +35,11 @@ const routes = [
     path: "/results",
     name: "Results",
     component: Results,
+  },
+  {
+    path: "/details",
+    name: "Details",
+    component: Details,
   },
 ];
 
