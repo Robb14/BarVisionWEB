@@ -1,7 +1,7 @@
 <template>
     <footer class="bg-white text-black py-14">
         <div class="container mx-auto py-6 px-4">
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                     <h4 class="text-lg font-semibold">About us</h4>
                     <ul class="mt-4 space-y-2">
@@ -10,13 +10,13 @@
                         <li><a href="#">FAQ</a></li>
                     </ul>
                 </div>
-                <div>
+                <div class="flex flex-col items-center">
                     <h4 class="text-lg font-semibold">BarVision</h4>
                     <ul class="mt-4 space-y-2">
                         <li>Tel 123-456-7890</li>
                         <li>Email info@barvision.com</li>
                     </ul>
-                    <div class="flex mt-4 space-x-8 justify-center">
+                    <div class="flex mt-4 justify-center sm:justify-start">
                         <a href="#" class="text-black hover:text-gray-400">
                             <img class="h-6 w-6" src="../../assets/instagram.png" alt="Instagram">
                         </a>
@@ -28,7 +28,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center mt-4 sm:mt-0">
                     <h4 class="text-lg font-semibold">Subscribe to our Newsletter</h4>
                     <div class="mt-4 flex">
                         <input type="email" placeholder="Enter your email"
@@ -50,4 +50,9 @@
 .space-x-8>*+* {
     margin-left: 2rem;
 }
+
+.sm\:justify-start {
+    justify-content: flex-start !important;
+}
 </style>
+  
