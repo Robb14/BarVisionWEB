@@ -8,6 +8,7 @@ import Details from "../views/Details.vue";
 import Bars from "../views/Bars.vue";
 import Matches from "../views/Matches.vue";
 import Profile from "../views/Profile.vue";
+import AddBar from "../views/AddBar.vue";
 
 const routes = [
   {
@@ -58,6 +59,11 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/addbar",
+    name: "AddBar",
+    component: AddBar,
   },
 ];
 

@@ -11,7 +11,7 @@ import Header from "@/components/header/Header.vue";
 import Matches from "@/components/matches/Matches.vue";
 import Footer from "@/components/footer/Footer.vue";
 export default {
-    name: "ResultsView",
+    name: "MatchesView",
     components: { Header, Matches, Footer },
     methods: {},
 };
