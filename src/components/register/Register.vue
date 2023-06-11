@@ -59,11 +59,11 @@
                                             </label>
                                         </div>
 
-                                        <!--Admin checkbox-->
+                                        <!--Owner checkbox-->
                                         <div class="relative mb-6">
                                             <label class="inline-flex items-center">
-                                                <input type="checkbox" class="form-checkbox" v-model="isAdmin" />
-                                                <span class="ml-2 text-white">Admin</span>
+                                                <input type="checkbox" class="form-checkbox" v-model="isOwner" />
+                                                <span class="ml-2 text-white">Owner</span>
                                             </label>
                                         </div>
 
@@ -72,7 +72,8 @@
                                             <button
                                                 class="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
                                                 type="button" data-te-ripple-init data-te-ripple-color="light"
-                                                style="background: linear-gradient(to bottom right, #283E51, #0A2342);">
+                                                style="background: linear-gradient(to bottom right, #283E51, #0A2342);"
+                                                @click="registerUser">
                                                 Register
                                             </button>
 
@@ -92,6 +93,7 @@
                                                 </router-link>
                                             </div>
                                         </div>
+                                        <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
                                     </form>
                                 </div>
                             </div>
@@ -129,6 +131,12 @@
 </template>
   
 <script>
+import { mapActions } from 'vuex';
+export const UserType = {
+    Normal: 0,
+    Owner: 1,
+    Admin: 2
+};
 export default {
     data() {
         return {
@@ -136,6 +144,7 @@ export default {
             password: '',
             email: '',
             isAdmin: false,
+            errorMessage: '',
         };
     },
     methods: {
@@ -147,6 +156,25 @@ export default {
             } else if (field === 'email') {
                 this.email = '';
             }
+        },
+        ...mapActions(['register']),
+        registerUser() {
+            const userData = {
+                username: this.username,
+                password: this.password,
+                email: this.email,
+                userType: this.isOwner ? UserType.Owner : UserType.Normal,
+            };
+
+            this.register(userData)
+                .then(() => {
+                    // Registro exitoso, redirige al componente de inicio de sesión
+                    this.$router.push('/login');
+                })
+                .catch((error) => {
+                    console.error(error);
+                    this.errorMessage = error.message;
+                });
         },
     },
 };

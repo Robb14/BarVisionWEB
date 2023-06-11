@@ -16,7 +16,7 @@
                                         </h4>
                                     </div>
 
-                                    <form>
+                                    <form @submit.prevent="handleLogin">
                                         <p class="mb-4 text-white">Please login to your account</p>
                                         <!--Username input-->
                                         <div class="relative mb-4" data-te-input-wrapper-init>
@@ -49,12 +49,11 @@
                                         <div class="mb-12 pb-1 pt-1 text-center">
                                             <button
                                                 class="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
-                                                type="button" data-te-ripple-init data-te-ripple-color="light"
-                                                style="background: linear-gradient(to bottom right, #283E51, #0A2342);">
+                                                type="submit" data-te-ripple-init data-te-ripple-color="light"
+                                                style="background: linear-gradient(to bottom right, #283E51, #0A2342);"
+                                                @click="handleLogin">
                                                 Log in
                                             </button>
-
-
 
                                             <!--Forgot password link-->
                                             <a href="#!" class="text-white">Forgot password?</a>
@@ -72,6 +71,7 @@
                                                 </router-link>
                                             </div>
                                         </div>
+                                        <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
                                     </form>
                                 </div>
                             </div>
@@ -109,11 +109,13 @@
 </template>
   
 <script>
+import { mapActions } from 'vuex';
 export default {
     data() {
         return {
             username: '',
             password: '',
+            errorMessage: '',
         };
     },
     methods: {
@@ -124,6 +126,36 @@ export default {
                 this.password = '';
             }
         },
+        async handleLogin() {
+            if (!this.validateCredentials()) {
+                return;
+            }
+
+            try {
+                const credentials = {
+                    username: this.username,
+                    password: this.password
+                };
+
+                await this.$store.dispatch('login', credentials);
+
+                // Si el inicio de sesión es exitoso, redirige al usuario a la página de inicio
+                this.$router.push('/home');
+            } catch (error) {
+                console.error(error);
+                this.errorMessage = error.message;
+            }
+        },
+
+        validateCredentials() {
+            if (this.username.trim() === '' || this.password.trim() === '') {
+                this.errorMessage = 'Username and password are required';
+                return false;
+            }
+            return true;
+        },
+
+        ...mapActions(['login'])
     },
-};
+}
 </script>
