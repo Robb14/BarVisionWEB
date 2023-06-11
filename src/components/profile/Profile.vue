@@ -26,54 +26,60 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import { mapState } from 'vuex';
 
 export default {
     data() {
         return {
-            loggedInUser: null,
-            userType: '',
             showPassword: false,
-            showDeleteConfirmation: false
+            showDeleteConfirmation: false,
+            userType: ''
         };
-    },
-    mounted() {
-        this.loggedInUser = this.$store.state.loggedInUser;
-        this.setUserType();
     },
     computed: {
         ...mapState(['loggedInUser']),
         canAddBar() {
-            return this.loggedInUser && (this.loggedInUser.userType === 1 || this.loggedInUser.userType === 2);
+            return this.loggedInUser && (this.loggedInUser.userType === 'Owner' || this.loggedInUser.userType === 'Admin');
         },
         canDeleteAccount() {
             return this.loggedInUser !== null;
         }
     },
+    watch: {
+        loggedInUser: {
+            immediate: true,
+            handler(newValue) {
+                if (newValue) {
+                    this.setUserType(newValue.userType);
+                } else {
+                    this.setUserType(null);
+                }
+            },
+        },
+    },
     methods: {
         togglePasswordVisibility() {
             this.showPassword = !this.showPassword;
         },
-        setUserType() {
-            if (this.loggedInUser) {
-                switch (this.loggedInUser.userType) {
-                    case 0:
-                        this.userType = 'normal';
-                        break;
-                    case 1:
-                        this.userType = 'owner';
-                        break;
-                    case 2:
-                        this.userType = 'admin';
-                        break;
-                    default:
-                        this.userType = 'unknown';
-                        break;
-                }
+        setUserType(userType) {
+            switch (userType) {
+                case 'Normal':
+                    this.userType = 'normal';
+                    break;
+                case 'Owner':
+                    this.userType = 'owner';
+                    break;
+                case 'Admin':
+                    this.userType = 'admin';
+                    break;
+                default:
+                    this.userType = 'unknown';
+                    break;
             }
         },
+
         confirmDeleteAccount() {
             this.showDeleteConfirmation = true;
         },
@@ -81,18 +87,19 @@ export default {
             this.showDeleteConfirmation = false;
         },
         deleteAccount() {
-            this.$store.dispatch('deleteUser', this.loggedInUser.id)
+            this.$store
+                .dispatch('deleteUser', this.loggedInUser.id)
                 .then(() => {
                     this.$router.push('/home');
                 })
                 .catch(error => {
                     console.error(error);
                 });
-        },
+        }
     }
 };
 </script>
-  
+
 <style scoped>
 .container {
     background-color: #f1f1f1;

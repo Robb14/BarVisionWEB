@@ -16,11 +16,8 @@ const store = createStore({
             state.users = users;
         },
         SET_LOGGED_IN_USER(state, user) {
-            state.loggedInUser = {
-                ...user,
-                id: user.id // Asegúrate de que la propiedad 'id' esté presente en el objeto 'loggedInUser'
-            };
-            state.isLoggedIn = true;
+            state.loggedInUser = user;
+            state.isLoggedIn = true; // Agregar esta línea
         },
         SET_REGISTERED_USER(state, user) {
             state.loggedInUser = user;
@@ -51,9 +48,10 @@ const store = createStore({
                 commit('SET_LOGGED_IN_USER', response.data);
             } catch (error) {
                 console.error(error);
-                throw new Error('Invalid username or password'); // Lanzar un error para que pueda ser capturado en el componente
+                throw new Error('Invalid username or password');
             }
         },
+
         async register({ commit }, userData) {
             try {
                 const response = await axios.post(`${API_BASE_URL}/api/user/register`, userData);
@@ -72,11 +70,8 @@ const store = createStore({
                 throw new Error('Error deleting user');
             }
         },
-        async createBar({ commit, state }, barData) {
+        async createBar({ commit }, barData) {
             try {
-                // Agregar el ID del propietario al barData antes de enviar la solicitud
-                barData.ownerId = state.loggedInUser.id;
-
                 const response = await axios.post(`${API_BASE_URL}/api/Bar`, barData);
                 // Handle successful bar creation if needed
                 console.log('Bar created:', response.data);
