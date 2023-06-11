@@ -13,7 +13,7 @@
         <div class="bg-gray-900 py-8">
             <div class="container mx-auto">
                 <h2 class="text-3xl font-semibold text-center mb-10 text-white mt-8">Suggested Matches</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="flex flex-col items-center">
                         <img class="w-full max-w-custom h-72 object-cover mb-6" src="../../assets/partidofutbol.jpg"
                             alt="Partido de Fútbol">
@@ -39,5 +39,16 @@
 .max-w-custom {
     max-width: 85%;
 }
-</style>
+
+@media (max-width: 1025px) {
+    .md\:grid-cols-3 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .grid-cols-1 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}</style>
   
