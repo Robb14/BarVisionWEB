@@ -9,6 +9,7 @@ const store = createStore({
             users: [],
             bars: [],
             loggedInUser: null,
+            matches: [],
         };
     },
     mutations: {
@@ -34,6 +35,9 @@ const store = createStore({
             // Agregar el ID del propietario al bar creado
             bar.ownerId = state.loggedInUser.id;
             state.bars.push(bar);
+        },
+        SET_MATCHES(state, matches) { // Agrega esta mutación
+            state.matches = matches;
         },
     },
     actions: {
@@ -85,6 +89,14 @@ const store = createStore({
             } catch (error) {
                 console.error(error);
                 throw new Error('Error creating bar');
+            }
+        },
+        async fetchMatches({ commit }) {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/api/Match`);
+                commit('SET_MATCHES', response.data);
+            } catch (error) {
+                console.error(error);
             }
         },
     },

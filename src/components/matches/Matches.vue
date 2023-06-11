@@ -4,41 +4,32 @@
             <h2 class="text-3xl font-bold mb-6">Results</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <router-link to="/details" v-for="result in results" :key="result.id" class="result-card">
-                    <img :src="require(`../../assets/${result.photo}`)" alt="Bar Photo" class="result-photo" />
+                <div v-for="match in matches" :key="match.id" class="result-card">
+                    <img :src="require(`../../assets/partidofutbol.jpg`)" alt="Bar Photo" class="result-photo" />
                     <div class="result-details">
-                        <h3 class="result-name">{{ result.match }}</h3>
-                        <p class="result-location">{{ result.location }}</p>
-                        <p class="result-match">{{ result.name }}</p>
+                        <h3 class="result-name">{{ match.sport }}</h3>
+                        <p class="result-location">{{ match.date }}</p>
                     </div>
-                </router-link>
+                </div>
             </div>
         </div>
     </section>
 </template>
   
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
-    data() {
-        return {
-            results: [
-                {
-                    id: 1,
-                    photo: "fotobar.jpg",
-                    name: "Bar Murray's",
-                    location: "C. de María Zayas Sotomayor, 2, 50018 Zaragoza",
-                    match: "Real Zaragoza - Huesca",
-                },
-                {
-                    id: 2,
-                    photo: "fotobar.jpg",
-                    name: "Bar Murray's",
-                    location: "C. de María Zayas Sotomayor, 2, 50018 Zaragoza",
-                    match: "Real Zaragoza - Huesca",
-                },
-                // Add more result objects as needed
-            ],
-        };
+    computed: {
+        ...mapState(['matches']),
+    },
+
+    methods: {
+        ...mapActions(['fetchMatches']),
+    },
+
+    mounted() {
+        this.fetchMatches();
     },
 };
 </script>
