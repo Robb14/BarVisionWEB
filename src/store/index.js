@@ -1,13 +1,14 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import axios from 'axios';
 
-Vue.use(Vuex);
+const API_BASE_URL = 'https://barvisionapi.azurewebsites.net';
 
-const store = new Vuex.Store({
-    state: {
-        users: [],
-        loggedInUser: null,
+const store = createStore({
+    state() {
+        return {
+            users: [],
+            loggedInUser: null,
+        };
     },
     mutations: {
         SET_USERS(state, users) {
@@ -32,8 +33,9 @@ const store = new Vuex.Store({
                 commit('SET_LOGGED_IN_USER', response.data);
             } catch (error) {
                 console.error(error);
+                throw new Error('Invalid username or password'); // Lanzar un error para que pueda ser capturado en el componente
             }
-        },
+        }
     },
 });
 
