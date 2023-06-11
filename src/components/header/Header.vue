@@ -25,9 +25,9 @@
                 <div class="mt-4 sm:mt-0 sm:flex sm:items-center">
                     <template v-if="isLoggedIn">
                         <!-- Mostrar el logo de perfil cuando se haya iniciado sesión -->
-                        <div class="flex justify-center">
+                        <router-link to="/profile" class="flex justify-center">
                             <img src="../../assets/usuario.png" alt="Profile" class="h-8 w-8 rounded-full">
-                        </div>
+                        </router-link>
                     </template>
                     <template v-else>
                         <!-- Mostrar "Log In" y "Create Account" cuando no se haya iniciado sesión -->

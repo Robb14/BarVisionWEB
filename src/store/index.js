@@ -22,6 +22,10 @@ const store = createStore({
             state.loggedInUser = user;
             state.isLoggedIn = true;
         },
+        LOGOUT(state) {
+            state.loggedInUser = null;
+            state.isLoggedIn = false;
+        },
     },
     actions: {
         async fetchUsers({ commit }) {
@@ -48,6 +52,15 @@ const store = createStore({
             } catch (error) {
                 console.error(error);
                 throw new Error('Username already in use');
+            }
+        },
+        async deleteUser({ commit }, userId) {
+            try {
+                await axios.delete(`${API_BASE_URL}/api/user/${userId}`);
+                commit('LOGOUT');
+            } catch (error) {
+                console.error(error);
+                throw new Error('Error deleting user');
             }
         },
     },

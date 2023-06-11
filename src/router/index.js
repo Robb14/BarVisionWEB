@@ -7,6 +7,7 @@ import Results from "../views/Results.vue";
 import Details from "../views/Details.vue";
 import Bars from "../views/Bars.vue";
 import Matches from "../views/Matches.vue";
+import Profile from "../views/Profile.vue";
 
 const routes = [
   {
@@ -52,6 +53,11 @@ const routes = [
     path: "/matches",
     name: "Matches",
     component: Matches,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
   },
 ];
 
