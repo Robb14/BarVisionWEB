@@ -16,7 +16,7 @@
             <nav :class="{ 'block': isMenuOpen, 'hidden': !isMenuOpen }" class="sm:flex sm:items-center sm:space-x-8">
                 <div class="flex flex-grow justify-center sm:justify-start">
                     <ul class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8">
-                        <li><a href="#" class="hover:text-gray-400">Matches</a></li>
+                        <li><router-link to="/matches" href="#" class="hover:text-gray-400">Matches</router-link></li>
                         <li><router-link to="/bars" href="#" class="hover:text-gray-400">Bars</router-link></li>
                         <li><a href="#" class="hover:text-gray-400">Reservations</a></li>
                         <li><a href="#" class="hover:text-gray-400">More</a></li>

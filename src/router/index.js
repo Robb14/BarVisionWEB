@@ -6,6 +6,7 @@ import Search from "../views/Search.vue";
 import Results from "../views/Results.vue";
 import Details from "../views/Details.vue";
 import Bars from "../views/Bars.vue";
+import Matches from "../views/Matches.vue";
 
 const routes = [
   {
@@ -46,6 +47,11 @@ const routes = [
     path: "/bars",
     name: "Bars",
     component: Bars,
+  },
+  {
+    path: "/matches",
+    name: "Matches",
+    component: Matches,
   },
 ];
 
