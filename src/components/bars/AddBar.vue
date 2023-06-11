@@ -71,7 +71,7 @@
                                 <div class="mt-6">
                                     <button type="submit"
                                         class="w-full py-3 px-4 rounded bg-primary text-white font-semibold hover:bg-primary-dark transition-colors duration-200 focus:outline-none focus:bg-primary-dark "
-                                        @click="addBar">
+                                        @click.prevent="submitForm">
                                         Add Bar
                                     </button>
                                 </div>
@@ -147,32 +147,30 @@
 </style>
   
 <script>
-import { mapActions } from "vuex";
-
+import { mapActions } from 'vuex';
 export default {
     data() {
         return {
-            name: "",
-            location: "",
-            match: "",
-            menu: "",
+            name: '',
+            location: '',
+            match: '',
+            menu: '',
         };
     },
     methods: {
-        ...mapActions(["createBar"]),
         clearInput(field) {
-            if (field === "name") {
-                this.name = "";
-            } else if (field === "location") {
-                this.location = "";
-            }
-            if (field === "match") {
-                this.match = "";
-            } else if (field === "menu") {
-                this.menu = "";
+            if (field === 'name') {
+                this.name = '';
+            } else if (field === 'location') {
+                this.location = '';
+            } else if (field === 'match') {
+                this.match = '';
+            } else if (field === 'menu') {
+                this.menu = '';
             }
         },
-        addBar() {
+        ...mapActions(['createBar']),
+        submitForm() {
             const barData = {
                 name: this.name,
                 location: this.location,

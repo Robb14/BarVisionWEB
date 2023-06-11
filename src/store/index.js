@@ -7,8 +7,8 @@ const store = createStore({
     state() {
         return {
             users: [],
-            loggedInUser: null,
             bars: [],
+            loggedInUser: null,
         };
     },
     mutations: {
@@ -16,8 +16,11 @@ const store = createStore({
             state.users = users;
         },
         SET_LOGGED_IN_USER(state, user) {
-            state.loggedInUser = user;
-            state.isLoggedIn = true; // Agregar esta línea
+            state.loggedInUser = {
+                ...user,
+                id: user.id // Asegúrate de que la propiedad 'id' esté presente en el objeto 'loggedInUser'
+            };
+            state.isLoggedIn = true;
         },
         SET_REGISTERED_USER(state, user) {
             state.loggedInUser = user;
@@ -70,8 +73,11 @@ const store = createStore({
                 throw new Error('Error deleting user');
             }
         },
-        async createBar({ commit }, barData) {
+        async createBar({ commit, state }, barData) {
             try {
+                // Agregar el ID del propietario al barData antes de enviar la solicitud
+                barData.ownerId = state.loggedInUser.id;
+
                 const response = await axios.post(`${API_BASE_URL}/api/Bar`, barData);
                 // Handle successful bar creation if needed
                 console.log('Bar created:', response.data);
