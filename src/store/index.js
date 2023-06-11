@@ -16,6 +16,11 @@ const store = createStore({
         },
         SET_LOGGED_IN_USER(state, user) {
             state.loggedInUser = user;
+            state.isLoggedIn = true; // Agregar esta línea
+        },
+        SET_REGISTERED_USER(state, user) {
+            state.loggedInUser = user;
+            state.isLoggedIn = true;
         },
     },
     actions: {
@@ -35,7 +40,16 @@ const store = createStore({
                 console.error(error);
                 throw new Error('Invalid username or password'); // Lanzar un error para que pueda ser capturado en el componente
             }
-        }
+        },
+        async register({ commit }, userData) {
+            try {
+                const response = await axios.post(`${API_BASE_URL}/api/user/register`, userData);
+                commit('SET_REGISTERED_USER', response.data);
+            } catch (error) {
+                console.error(error);
+                throw new Error('Username already in use');
+            }
+        },
     },
 });
 

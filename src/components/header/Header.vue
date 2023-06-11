@@ -23,16 +23,25 @@
                     </ul>
                 </div>
                 <div class="mt-4 sm:mt-0 sm:flex sm:items-center">
-                    <router-link to="/login" class="text-white mr-4 hover:text-gray-400">Log In</router-link>
-                    <router-link to="/signup"
-                        class="bg-white text-gray-900 font-medium py-2 px-4 rounded-full transition-colors duration-300 hover:bg-gray-400 hover:text-white">Create
-                        Account</router-link>
+                    <template v-if="isLoggedIn">
+                        <!-- Mostrar el logo de perfil cuando se haya iniciado sesión -->
+                        <div class="flex justify-center">
+                            <img src="../../assets/usuario.png" alt="Profile" class="h-8 w-8 rounded-full">
+                        </div>
+                    </template>
+                    <template v-else>
+                        <!-- Mostrar "Log In" y "Create Account" cuando no se haya iniciado sesión -->
+                        <router-link to="/login" class="text-white mr-4 hover:text-gray-400">Log In</router-link>
+                        <router-link to="/signup"
+                            class="bg-white text-gray-900 font-medium py-2 px-4 rounded-full transition-colors duration-300 hover:bg-gray-400 hover:text-white">Create
+                            Account</router-link>
+                    </template>
                 </div>
             </nav>
         </div>
     </header>
 </template>
-  
+
 <script>
 export default {
     data() {
@@ -44,20 +53,11 @@ export default {
         toggleMenu() {
             this.isMenuOpen = !this.isMenuOpen;
         }
+    },
+    computed: {
+        isLoggedIn() {
+            return this.$store.state.isLoggedIn;
+        }
     }
 };
 </script>
-  
-<style>
-@media (min-width: 640px) {
-    .sm\:hidden {
-        display: none !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .max-w-logo {
-        max-width: 10rem;
-    }
-}</style>
-  
