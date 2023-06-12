@@ -1,9 +1,9 @@
 <template>
-    <section class="results">
+    <section class="results flex justify-center">
         <div class="container">
             <h2 class="text-3xl font-bold mb-6">Results</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
                 <div v-for="match in matches" :key="match.id" class="result-card">
                     <img :src="require(`../../assets/partidofutbol.jpg`)" alt="Bar Photo" class="result-photo" />
                     <div class="result-details">
@@ -15,6 +15,7 @@
         </div>
     </section>
 </template>
+
   
 <script>
 import { mapState, mapActions } from 'vuex';
