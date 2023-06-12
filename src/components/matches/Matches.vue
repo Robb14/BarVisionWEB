@@ -9,6 +9,7 @@
                     <div class="result-details">
                         <h3 class="result-name">{{ match.sport }}</h3>
                         <p class="result-location">{{ match.date }}</p>
+                        <span v-if="isAdmin" @click="deleteMatchAction(match.id)" class="delete-icon">❌</span>
                     </div>
                 </div>
             </div>
@@ -16,25 +17,39 @@
     </section>
 </template>
 
-  
 <script>
 import { mapState, mapActions } from 'vuex';
 
 export default {
     computed: {
-        ...mapState(['matches']),
+        ...mapState(['matches', 'loggedInUser']),
+        isAdmin() {
+            return this.loggedInUser && this.loggedInUser.userType === 'Admin';
+        },
     },
 
     methods: {
         ...mapActions(['fetchMatches']),
+        ...mapActions(['deleteMatch']),
+        async deleteMatchAction(matchId) {
+            try {
+                await this.deleteMatch(matchId);
+                // Actualizar la lista de partidos después de eliminar uno
+                this.fetchMatches();
+            } catch (error) {
+                console.error(error);
+                // Manejar cualquier error de eliminación del partido
+            }
+        },
     },
 
     mounted() {
         this.fetchMatches();
     },
+
 };
 </script>
-  
+
 <style scoped>
 .results {
     padding: 40px;
@@ -70,4 +85,3 @@ export default {
     margin-bottom: 4px;
 }
 </style>
-  

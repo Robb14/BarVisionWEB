@@ -164,6 +164,15 @@ const store = createStore({
                     console.error(error);
                 });
         },
+        async deleteMatch({ commit }, matchId) {
+            try {
+                await axios.delete(`${API_BASE_URL}/api/Match/${matchId}`);
+                commit('REMOVE_MATCH', matchId);
+            } catch (error) {
+                console.error(error);
+                // Manejar cualquier error de eliminación del partido
+            }
+        },
 
     },
 });
