@@ -5,6 +5,10 @@ import Login from "../views/Login.vue";
 import Search from "../views/Search.vue";
 import Results from "../views/Results.vue";
 import Details from "../views/Details.vue";
+import Bars from "../views/Bars.vue";
+import Matches from "../views/Matches.vue";
+import Profile from "../views/Profile.vue";
+import AddBar from "../views/AddBar.vue";
 
 const routes = [
   {
@@ -40,6 +44,26 @@ const routes = [
     path: "/details",
     name: "Details",
     component: Details,
+  },
+  {
+    path: "/bars",
+    name: "Bars",
+    component: Bars,
+  },
+  {
+    path: "/matches",
+    name: "Matches",
+    component: Matches,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+  },
+  {
+    path: "/addbar",
+    name: "AddBar",
+    component: AddBar,
   },
 ];
 

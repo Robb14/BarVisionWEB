@@ -5,11 +5,11 @@
                 <div class="w-full">
                     <div class="grid grid-cols-2 gap-4 bg-gray-900">
                         <div>
-                            <img :src="require(`../../assets/${bar.photo1}`)" alt="Bar Photo 1"
+                            <img :src="require(`../../assets/fotobar.jpg`)" alt="Bar Photo 1"
                                 class="w-full h-auto bar-image ml-3 mt-4" />
                         </div>
                         <div>
-                            <img :src="require(`../../assets/${bar.photo2}`)" alt="Bar Photo 2"
+                            <img :src="require(`../../assets/fotobar2.jpg`)" alt="Bar Photo 2"
                                 class="w-full h-auto bar-image mr-2 mt-4" />
                         </div>
                     </div>
@@ -19,8 +19,8 @@
                     <p class="text-lg text-white mb-4">{{ bar.location }}</p>
                     <p class="text-lg text-white mb-6">{{ bar.match }}</p>
                     <div class="flex justify-center">
-                        <router-link to="/menu" class="btn-menu mr-4">View Menu</router-link>
-                        <router-link to="/reserve" class="btn-reserve">Reserve</router-link>
+                        <button class="btn-menu mr-4">View Menu</button>
+                        <button to="/reserve" class="btn-reserve">Reserve</button>
                     </div>
                     <div class="people-select mt-6">
                         <label for="people" class="text-lg text-white">Amount of people:</label>
@@ -53,7 +53,84 @@
         </div>
     </section>
 </template>
+  
+  
+<script>
+import { mapActions } from 'vuex';
+export default {
+    data() {
+        return {
+            selectedPeople: 1,
+            newReview: "",
+        };
+    },
+    computed: {
+        bar() {
+            return this.$store.state.bar;
+        },
+    },
+    methods: {
+        addReview() {
+            // Lógica para agregar una nueva reseña
+            if (this.newReview.trim() !== "") {
+                const newReview = {
+                    id: this.bar.reviews.length + 1,
+                    text: this.newReview,
+                    author: "User",
+                };
+                this.bar.reviews.push(newReview);
+                this.newReview = "";
+            }
+        },
+        ...mapActions(['createReservation']),
+        reserve() {
+            // Verificar si el usuario está autenticado
+            if (!this.$store.state.loggedInUser) {
+                alert('Please log in to make a reservation.');
+                return;
+            }
 
+            // Crear el objeto de reserva
+            const reservation = {
+                date: new Date(),
+                barId: this.bar.id,
+                userId: this.$store.state.loggedInUser.id,
+                amountOfPeople: parseInt(this.selectedPeople),
+            };
+
+            // Llamar a la acción 'createReservation' del store para crear la reserva
+            this.createReservation(reservation)
+                .then(() => {
+                    alert('Reservation created successfully!');
+                    // Aquí puedes realizar cualquier acción adicional después de la creación de la reserva, como redireccionar a una página de confirmación, actualizar los datos del usuario, etc.
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Failed to create reservation.');
+                });
+        },
+        ...mapActions(['fetchBarData']),
+
+        mounted() {
+            // Obtén el ID del bar desde las props o desde la ruta, dependiendo de cómo lo estés pasando
+            const barId = this.$route.params.barId;
+
+            // Llama a la acción 'fetchBarData' pasando el ID del bar para cargar los datos del bar correspondiente
+            this.fetchBarData(barId)
+                .then(() => {
+                    // La acción fetchBarData se ha completado correctamente
+                })
+                .catch(error => {
+                    console.error(error);
+                    // Maneja el error de la carga de datos del bar
+                });
+        },
+        ...mapActions(['fetchBarData', 'createReservation']),
+    },
+};
+</script>
+  
+  
 <style scoped>
 .bar-image {
     max-width: 98%;
@@ -120,55 +197,4 @@
     margin-bottom: 16px;
 }
 </style>
-
-<script>
-export default {
-    data() {
-        return {
-            bar: {
-                id: 1,
-                photo1: "fotobar.jpg",
-                photo2: "fotobar2.jpg",
-                name: "Bar Murray's",
-                location: "C. de María Zayas Sotomayor, 2, 50018 Zaragoza",
-                match: "Inter de Milán - Manchester City",
-                reviews: [
-                    {
-                        id: 1,
-                        text: "Excellent place to watch matches. Good food and atmosphere.",
-                        author: "Juan",
-                    },
-                    {
-                        id: 2,
-                        text: "The staff is very friendly and the atmosphere is great.",
-                        author: "María",
-                    },
-                    // Add more reviews as needed
-                ],
-            },
-            selectedPeople: 1,
-            newReview: "",
-        };
-    },
-    methods: {
-        viewMenu() {
-            // Logic to view the bar menu
-        },
-        reserve() {
-            // Logic to make a reservation at the bar with the selected number of people
-        },
-        addReview() {
-            // Logic to add a new review
-            if (this.newReview.trim() !== "") {
-                const newReview = {
-                    id: this.bar.reviews.length + 1,
-                    text: this.newReview,
-                    author: "User",
-                };
-                this.bar.reviews.push(newReview);
-                this.newReview = "";
-            }
-        },
-    },
-};
-</script>
+  
