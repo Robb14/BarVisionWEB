@@ -10,6 +10,7 @@ const store = createStore({
             bars: [],
             loggedInUser: null,
             matches: [],
+            bar: {},
         };
     },
     mutations: {
@@ -39,6 +40,13 @@ const store = createStore({
         SET_MATCHES(state, matches) { // Agrega esta mutación
             state.matches = matches;
         },
+        SET_BARS(state, bars) {
+            state.bars = bars;
+        },
+        SET_BAR(state, bar) {
+            state.bar = bar;
+        },
+
     },
     actions: {
         async fetchUsers({ commit }) {
@@ -99,6 +107,38 @@ const store = createStore({
                 console.error(error);
             }
         },
+        async fetchBars({ commit }) {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/api/Bar`);
+                commit('SET_BARS', response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async fetchBarData({ commit }, barId) {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/api/Bar/${barId}`);
+                commit('SET_BAR', response.data);
+            } catch (error) {
+                if (error.response && error.response.status === 400) {
+                    console.error('Bad Request:', error.response.data);
+                    console.error('Validation Errors:', error.response.data.errors);
+                } else {
+                    console.error('Error fetching bar:', error);
+                }
+            }
+        },
+        async createReservation(_, reservation) {
+            try {
+                const response = await axios.post(`${API_BASE_URL}/api/Reservation`, reservation);
+                // Aquí puedes realizar cualquier acción adicional después de la creación de la reserva, como actualizar los datos del usuario, etc.
+                return response.data;
+            } catch (error) {
+                console.error(error);
+                throw new Error('Error creating reservation');
+            }
+        },
+
     },
 });
 
