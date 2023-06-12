@@ -25,7 +25,8 @@
                                 <div class="flex justify-between">
                                     <router-link to="/results"
                                         class="inline-block rounded px-6 py-2 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
-                                        style="background: linear-gradient(to bottom right, #283E51, #0A2342);">
+                                        style="background: linear-gradient(to bottom right, #283E51, #0A2342);"
+                                        @click="search">
                                         Search
                                     </router-link>
 
@@ -54,10 +55,14 @@ export default {
     },
     methods: {
         search() {
-            // Lógica de búsqueda aquí
-            // Puedes utilizar this.searchOption y this.searchText para realizar la búsqueda
+            this.$store.dispatch('searchBars', this.searchText);
         },
     },
 };
 </script>
+  
+<style scoped>
+/* Estilos del componente Search.vue */
+</style>
+  
   

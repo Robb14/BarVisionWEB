@@ -46,6 +46,9 @@ const store = createStore({
         SET_BAR(state, bar) {
             state.bar = bar;
         },
+        setResults(state, results) {
+            state.results = results;
+        },
 
     },
     actions: {
@@ -137,6 +140,16 @@ const store = createStore({
                 console.error(error);
                 throw new Error('Error creating reservation');
             }
+        },
+        searchBars({ commit }, searchText) {
+            axios
+                .get(`${API_BASE_URL}/api/user/search`, { params: { query: searchText } })
+                .then((response) => {
+                    commit('setResults', response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         },
 
     },

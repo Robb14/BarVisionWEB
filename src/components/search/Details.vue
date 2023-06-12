@@ -109,9 +109,23 @@ export default {
                     alert('Failed to create reservation.');
                 });
         },
-    },
-    mounted() {
-        this.$store.dispatch("fetchBarData"); // Modificado para llamar a la acción "fetchBarData"
+        ...mapActions(['fetchBarData']),
+
+        mounted() {
+            // Obtén el ID del bar desde las props o desde la ruta, dependiendo de cómo lo estés pasando
+            const barId = this.$route.params.barId;
+
+            // Llama a la acción 'fetchBarData' pasando el ID del bar para cargar los datos del bar correspondiente
+            this.fetchBarData(barId)
+                .then(() => {
+                    // La acción fetchBarData se ha completado correctamente
+                })
+                .catch(error => {
+                    console.error(error);
+                    // Maneja el error de la carga de datos del bar
+                });
+        },
+        ...mapActions(['fetchBarData', 'createReservation']),
     },
 };
 </script>
