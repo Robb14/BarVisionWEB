@@ -11,6 +11,7 @@ const store = createStore({
             loggedInUser: null,
             matches: [],
             bar: {},
+            suggestedMatches: [],
         };
     },
     mutations: {
@@ -48,6 +49,9 @@ const store = createStore({
         },
         setResults(state, results) {
             state.results = results;
+        },
+        setSuggestedMatches(state, matches) {
+            state.suggestedMatches = matches;
         },
 
     },
@@ -148,6 +152,15 @@ const store = createStore({
                     commit('setResults', response.data);
                 })
                 .catch((error) => {
+                    console.error(error);
+                });
+        },
+        fetchSuggestedMatches({ commit }) {
+            axios.get(`${API_BASE_URL}/api/Match`)
+                .then(response => {
+                    commit('setSuggestedMatches', response.data);
+                })
+                .catch(error => {
                     console.error(error);
                 });
         },

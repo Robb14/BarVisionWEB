@@ -18,17 +18,18 @@
                     <div class="flex flex-col items-center">
                         <img class="w-full max-w-custom h-72 object-cover mb-6" src="../../assets/partidofutbol.jpg"
                             alt="Partido de Fútbol">
-                        <p class="text-lg font-semibold text-white mt-2">Nombre del Partido de Fútbol</p>
+                        <p class="text-lg font-semibold text-white mt-2">{{ $store.state.suggestedMatches[0]?.sport }}</p>
                     </div>
                     <div class="flex flex-col items-center">
                         <img class="w-full max-w-custom h-72 object-cover mb-6" src="../../assets/partidotenis.jpg"
                             alt="Partido de Tenis">
-                        <p class="text-lg font-semibold text-white mt-2">Nombre del Partido de Tenis</p>
+                        <p class="text-lg font-semibold text-white mt-2">{{ $store.state.suggestedMatches[1]?.sport }}</p>
+
                     </div>
                     <div class="flex flex-col items-center">
                         <img class="w-full max-w-custom h-72 object-cover mb-6" src="../../assets/partidobaloncesto.jpg"
                             alt="Partido de Baloncesto">
-                        <p class="text-lg font-semibold text-white mt-2">Nombre del Partido de Baloncesto</p>
+                        <p class="text-lg font-semibold text-white mt-2">{{ $store.state.suggestedMatches[2]?.sport }}</p>
                     </div>
                 </div>
             </div>
@@ -53,4 +54,13 @@
     }
 }
 </style>
+
+<script>
+export default {
+    created() {
+        this.$store.dispatch('fetchSuggestedMatches');
+    },
+};
+</script>
+
   
