@@ -6,7 +6,7 @@
             <button class="mt-4 px-4 py-2 font-bold text-white bg-blue-500 rounded" @click="togglePasswordVisibility">
                 {{ showPassword ? 'Hide Password' : 'Show Password' }}
             </button>
-            <router-link to="/reviews" class="block mt-4 text-blue-500">Show My Reservations</router-link>
+            <router-link to="/reservations" class="block mt-4 text-blue-500">Show My Reservations</router-link>
             <p v-if="showPassword" class="mt-4 text-white">Password: {{ loggedInUser ? loggedInUser.password : '' }}</p>
             <p class="mt-4 text-white">User Type: <span class="capitalize">{{ userType }}</span></p>
             <router-link v-if="canAddBar" to="/addbar" class="block mt-4 text-blue-500">Add Bar</router-link>

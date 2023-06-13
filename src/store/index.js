@@ -13,11 +13,15 @@ const store = createStore({
             bar: {},
             suggestedMatches: [],
             results: [],
+            reservations: [],
         };
     },
     mutations: {
         SET_USERS(state, users) {
             state.users = users;
+        },
+        SET_RESERVATIONS(state, reservations) {
+            state.reservations = reservations;
         },
         SET_LOGGED_IN_USER(state, user) {
             state.loggedInUser = {
@@ -173,6 +177,14 @@ const store = createStore({
             } catch (error) {
                 console.error(error);
                 // Manejar cualquier error de eliminación del partido
+            }
+        },
+        async fetchReservations({ commit }) {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/api/Reservation`);
+                commit('SET_RESERVATIONS', response.data);
+            } catch (error) {
+                console.error(error);
             }
         },
 

@@ -9,6 +9,7 @@ import Bars from "../views/Bars.vue";
 import Matches from "../views/Matches.vue";
 import Profile from "../views/Profile.vue";
 import AddBar from "../views/AddBar.vue";
+import Reservations from "../views/Reservations.vue";
 
 const routes = [
   {
@@ -64,6 +65,11 @@ const routes = [
     path: "/addbar",
     name: "AddBar",
     component: AddBar,
+  },
+  {
+    path: "/reservations",
+    name: "Reservations",
+    component: Reservations,
   },
 ];
 

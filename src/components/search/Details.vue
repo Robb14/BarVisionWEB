@@ -20,7 +20,7 @@
                     <p class="text-lg text-white mb-6">{{ bar.match }}</p>
                     <div class="flex justify-center">
                         <button class="btn-menu mr-4">View Menu</button>
-                        <button to="/reserve" class="btn-reserve">Reserve</button>
+                        <button class="btn-reserve" @click="reserve">Reserve</button>
                     </div>
                     <div class="people-select mt-6">
                         <label for="people" class="text-lg text-white">Amount of people:</label>
@@ -67,6 +67,9 @@ export default {
     computed: {
         bar() {
             return this.$store.state.bar;
+        },
+        loggedInUser() {
+            return this.$store.state.loggedInUser;
         },
     },
     methods: {
