@@ -4,7 +4,7 @@
             <h2 class="text-3xl font-bold mb-6">Results</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <router-link to="/details" v-for="result in results"  :key="result.id" class="result-card">
+                <router-link :to="`/details/${result.id}`" v-for="result in results"  :key="result.id" class="result-card">
                     <img :src="require(`../../assets/fotobar.jpg`)" alt="Bar Photo" class="result-photo" />
                     <div class="result-details">
                         <h3 class="result-name">{{ result.name }}</h3>

@@ -110,23 +110,25 @@ export default {
                 });
         },
         ...mapActions(['fetchBarData']),
-
-        mounted() {
-            // Obtén el ID del bar desde las props o desde la ruta, dependiendo de cómo lo estés pasando
-            const barId = this.$route.params.barId;
-
-            // Llama a la acción 'fetchBarData' pasando el ID del bar para cargar los datos del bar correspondiente
-            this.fetchBarData(barId)
-                .then(() => {
-                    // La acción fetchBarData se ha completado correctamente
-                })
-                .catch(error => {
-                    console.error(error);
-                    // Maneja el error de la carga de datos del bar
-                });
-        },
-        ...mapActions(['fetchBarData', 'createReservation']),
     },
+    mounted() {
+        // Obtén el ID del bar desde las props o desde la ruta, dependiendo de cómo lo estés pasando
+        const barId = this.$route.params.barId;
+
+        // Llama a la acción 'fetchBarData' pasando el ID del bar para cargar los datos del bar correspondiente
+        this.fetchBarData(barId)
+        this.$store.dispatch('fetchBarData', barId)
+            .then(() => {
+                this.bar = this.$store.state.bar;
+                // La acción fetchBarData se ha completado correctamente
+                console.log(this.bar);
+            })
+            .catch(error => {
+                console.error(error);
+                // Maneja el error de la carga de datos del bar
+            });
+    },
+    ...mapActions(['fetchBarData', 'createReservation']),
 };
 </script>
   

@@ -12,6 +12,7 @@ const store = createStore({
             matches: [],
             bar: {},
             suggestedMatches: [],
+            results: [],
         };
     },
     mutations: {
@@ -47,7 +48,7 @@ const store = createStore({
         SET_BAR(state, bar) {
             state.bar = bar;
         },
-        setResults(state, results) {
+        SET_RESULTS(state, results) {
             state.results = results;
         },
         setSuggestedMatches(state, matches) {
@@ -125,6 +126,7 @@ const store = createStore({
         async fetchBarData({ commit }, barId) {
             try {
                 const response = await axios.get(`${API_BASE_URL}/api/Bar/${barId}`);
+                console.log(response.data);
                 commit('SET_BAR', response.data);
             } catch (error) {
                 if (error.response && error.response.status === 400) {
@@ -149,7 +151,7 @@ const store = createStore({
             axios
                 .get(`${API_BASE_URL}/api/user/search`, { params: { query: searchText } })
                 .then((response) => {
-                    commit('setResults', response.data);
+                    commit('SET_RESULTS', response.data);
                 })
                 .catch((error) => {
                     console.error(error);
