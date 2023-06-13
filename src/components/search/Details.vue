@@ -49,6 +49,7 @@
                 <li v-for="review in bar.reviews" :key="review.id" class="review-item">
                     <p class="text-lg text-gray-700 mb-2">{{ review.text }}</p>
                     <p class="text-gray-600">{{ review.author }}</p>
+                    <p class="text-gray-600">Rating: {{ review.rating }}</p>
                 </li>
             </ul>
 
@@ -56,6 +57,14 @@
                 <h4 class="text-xl font-bold mb-2">Leave a review</h4>
                 <textarea v-model="newReview" rows="4"
                     class="w-full px-4 py-2 rounded bg-white text-gray-800 mb-4"></textarea>
+                <label for="rating" class="text-lg font-bold">Rating:</label>
+                <select v-model="selectedRating" id="rating" class="px-4 py-2 rounded bg-white text-gray-800 mb-4">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
                 <button class="btn-add-review" @click="addReview">Add Review</button>
             </div>
         </div>
@@ -70,6 +79,7 @@ export default {
             selectedPeople: 1,
             newReview: '',
             showMenu: false,
+            selectedRating: 0,
         };
     },
     computed: {
@@ -82,16 +92,39 @@ export default {
     },
     methods: {
         addReview() {
-            // Lógica para agregar una nueva reseña
-            if (this.newReview.trim() !== '') {
-                const newReview = {
-                    id: this.bar.reviews.length + 1,
-                    text: this.newReview,
-                    author: 'User',
-                };
-                this.bar.reviews.push(newReview);
-                this.newReview = '';
+            // Verificar si el usuario está autenticado
+            if (!this.$store.state.loggedInUser) {
+                alert('Please log in to add a review.');
+                return;
             }
+
+            // Crear el objeto de la nueva reseña
+            const newReview = {
+                text: this.newReview,
+                author: this.$store.state.loggedInUser.name, // Utilizar el nombre del usuario loggeado como el autor de la reseña
+                rating: parseInt(this.selectedRating),
+            };
+
+            // Actualizar el bar en el store
+            this.$store.commit('SET_BAR', this.bar);
+
+            // Reiniciar los campos de la reseña
+            this.newReview = '';
+            this.selectedRating = 0;
+
+            this.$store
+                .dispatch('addReview', newReview)
+                .then(() => {
+                    alert('Review added successfully!');
+                    // Aquí puedes realizar cualquier acción adicional después de la creación de la reseña, como mostrar un mensaje de éxito, actualizar la lista de reseñas, etc.
+                })
+                .catch((error) => {
+                    console.error(error);
+                    alert('Failed to add review.');
+                });
+
+
+
         },
         ...mapActions(['createReservation']),
         reserve() {
@@ -233,4 +266,3 @@ export default {
     margin-bottom: 8px;
 }
 </style>
-  

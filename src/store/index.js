@@ -14,6 +14,7 @@ const store = createStore({
             suggestedMatches: [],
             results: [],
             reservations: [],
+            reviews: [],
         };
     },
     mutations: {
@@ -58,6 +59,9 @@ const store = createStore({
         setSuggestedMatches(state, matches) {
             state.suggestedMatches = matches;
         },
+        SET_REVIEWS(state, reviews){
+            state.reviews = reviews;
+        }
 
     },
     actions: {
@@ -185,6 +189,22 @@ const store = createStore({
                 commit('SET_RESERVATIONS', response.data);
             } catch (error) {
                 console.error(error);
+            }
+        },
+
+        async addReview({ commit, state }, review) {
+            try {
+                // Agregar el ID del usuario y del bar a la reseña antes de enviarla a la API
+                review.userId = state.loggedInUser.id;
+                review.barId = state.bar.id;
+
+                const response = await axios.post(`${API_BASE_URL}/api/Review`, review);
+                // Aquí puedes realizar cualquier acción adicional después de la creación de la reseña, como actualizar los datos del usuario, etc.
+                console.log('Review created:', response.data);
+                commit('ADD_REVIEW', response.data);
+            } catch (error) {
+                console.error(error);
+                throw new Error('Error creating review');
             }
         },
 
