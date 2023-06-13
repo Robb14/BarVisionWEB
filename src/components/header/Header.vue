@@ -18,7 +18,9 @@
                     <ul class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8">
                         <li><router-link to="/matches" href="#" class="hover:text-gray-400">Matches</router-link></li>
                         <li><router-link to="/bars" href="#" class="hover:text-gray-400">Bars</router-link></li>
-                        <li><a href="#" class="hover:text-gray-400">Reservations</a></li>
+                        <li>
+                            <router-link v-if="isLoggedIn" to="/reservations" href="#" class="hover:text-gray-400">Reservations</router-link>
+                            <a v-else href="#" class="hover:text-gray-400" @click="showLoginMessage">Reservations</a></li>
                         <li><a href="#" class="hover:text-gray-400">More</a></li>
                     </ul>
                 </div>
@@ -52,7 +54,10 @@ export default {
     methods: {
         toggleMenu() {
             this.isMenuOpen = !this.isMenuOpen;
-        }
+        },
+        showLoginMessage() {
+            alert("Please log in or sign up to view your reservations.");
+        },
     },
     computed: {
         isLoggedIn() {
