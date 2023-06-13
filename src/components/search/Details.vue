@@ -19,7 +19,9 @@
                     <p class="text-lg text-white mb-4">{{ bar.location }}</p>
                     <p class="text-lg text-white mb-6">{{ bar.match }}</p>
                     <div class="flex justify-center">
-                        <button class="btn-menu mr-4">View Menu</button>
+                        <button class="btn-menu mr-4" @click="showMenu = !showMenu">
+                            View Menu
+                        </button>
                         <button class="btn-reserve" @click="reserve">Reserve</button>
                     </div>
                     <div class="people-select mt-6">
@@ -30,6 +32,12 @@
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
+                    </div>
+                    <div v-if="showMenu" class="menu-container">
+                        <h3 class="text-2xl font-bold mt-4 text-white">Menu</h3>
+                        <div class="menu-items">
+                            <p class="text-lg text-white">{{ bar.menu }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,14 +62,14 @@
     </section>
 </template>
   
-  
 <script>
 import { mapActions } from 'vuex';
 export default {
     data() {
         return {
             selectedPeople: 1,
-            newReview: "",
+            newReview: '',
+            showMenu: false,
         };
     },
     computed: {
@@ -75,14 +83,14 @@ export default {
     methods: {
         addReview() {
             // Lógica para agregar una nueva reseña
-            if (this.newReview.trim() !== "") {
+            if (this.newReview.trim() !== '') {
                 const newReview = {
                     id: this.bar.reviews.length + 1,
                     text: this.newReview,
-                    author: "User",
+                    author: 'User',
                 };
                 this.bar.reviews.push(newReview);
-                this.newReview = "";
+                this.newReview = '';
             }
         },
         ...mapActions(['createReservation']),
@@ -107,7 +115,7 @@ export default {
                     alert('Reservation created successfully!');
                     // Aquí puedes realizar cualquier acción adicional después de la creación de la reserva, como redireccionar a una página de confirmación, actualizar los datos del usuario, etc.
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error(error);
                     alert('Failed to create reservation.');
                 });
@@ -119,14 +127,15 @@ export default {
         const barId = this.$route.params.barId;
 
         // Llama a la acción 'fetchBarData' pasando el ID del bar para cargar los datos del bar correspondiente
-        this.fetchBarData(barId)
-        this.$store.dispatch('fetchBarData', barId)
+        this.fetchBarData(barId);
+        this.$store
+            .dispatch('fetchBarData', barId)
             .then(() => {
                 this.bar = this.$store.state.bar;
                 // La acción fetchBarData se ha completado correctamente
                 console.log(this.bar);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error(error);
                 // Maneja el error de la carga de datos del bar
             });
@@ -134,7 +143,6 @@ export default {
     ...mapActions(['fetchBarData', 'createReservation']),
 };
 </script>
-  
   
 <style scoped>
 .bar-image {
@@ -200,6 +208,29 @@ export default {
 
 .review-item {
     margin-bottom: 16px;
+}
+
+.menu-container {
+    margin-top: 16px;
+}
+
+.menu-items {
+    margin-top: 16px;
+    color: gray;
+}
+
+.menu-item {
+    background-color: #ffffff;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.menu-item {
+    background-color: #ffffff;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
 }
 </style>
   
